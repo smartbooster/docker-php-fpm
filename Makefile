@@ -2,13 +2,13 @@ login:
 	docker login
 
 build:
-	docker build -t smartbooster/docker-php-fpm .
-	docker build -t smartbooster/docker-php-fpm:builder ./builder
+	docker build -t smartbooster/php-fpm .
+	docker build -t smartbooster/php-fpm:builder ./builder
 
 push:
-	docker push smartbooster/docker-php-fpm
-	docker push smartbooster/docker-php-fpm:builder
+	docker push smartbooster/php-fpm
+	docker push smartbooster/php-fpm:builder
 
 pull:
-	docker pull smartbooster/docker-php-fpm
-	docker pull smartbooster/docker-php-fpm:builder
+	docker pull smartbooster/php-fpm
+	docker pull smartbooster/php-fpm:builder
