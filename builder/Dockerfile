@@ -23,7 +23,7 @@ RUN apt-get install -y \
     gnupg \
     sudo
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 RUN apt-get install -y nodejs
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
