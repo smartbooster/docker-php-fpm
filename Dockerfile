@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.3-fpm
 
 RUN apt-get update \
     && apt-get install \
@@ -6,6 +6,8 @@ RUN apt-get update \
     -y --no-install-recommends
 
 ADD ./etc/php/php.ini /usr/local/etc/php/php.ini
+
+RUN apt-get install libicu-dev -yqq
 
 RUN docker-php-ext-install pdo_mysql \
     && docker-php-ext-install opcache \

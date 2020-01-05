@@ -1,7 +1,5 @@
 FROM smartbooster/docker-php-fpm
 
-COPY .bashrc /root/.bashrc
-
 RUN apt-get update \
     && apt-get install \
     vim \
@@ -15,7 +13,8 @@ RUN apt-get update \
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "if (hash_file('SHA384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
     && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');"
+    && php -r "unlink('composer-setup.php');" \
+    && mv composer.phar /usr/local/bin/composer
 
 # Install Node et Yarn
 RUN apt-get install -y \
@@ -24,7 +23,7 @@ RUN apt-get install -y \
     gnupg \
     sudo
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 RUN apt-get install -y nodejs
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -40,3 +39,8 @@ RUN sudo apt-get update &&  apt-get install yarn
 RUN apt-get autoremove -y --purge \
     && apt-get clean \
     && rm -Rf /tmp/*
+
+RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev
+COPY .bashrc /home/dev/.bashrc
+RUN export HOME=/home/dev
+RUN adduser dev sudo
