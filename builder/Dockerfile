@@ -1,4 +1,4 @@
-FROM smartbooster/docker-php-fpm
+FROM smartbooster/php-fpm
 
 RUN apt-get update \
     && apt-get install \
@@ -10,17 +10,15 @@ RUN apt-get update \
 
 # Install de Composer
 ## Composer needs : git - zip - unzip
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('SHA384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-    && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /usr/local/bin/composer
+## Composer needs : git - zip - unzip
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN composer config --global repo.packagist composer https://packagist.org
 
 # Install Node et Yarn
 RUN apt-get install -y \
     build-essential \
-    apt-utils \
-    gnupg \
     sudo
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
