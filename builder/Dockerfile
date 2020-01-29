@@ -5,7 +5,8 @@ RUN apt-get update \
     vim \
     git \
     zip \
-    unzip\
+    unzip \
+    wget \
     -y --no-install-recommends
 
 # Install de Composer
@@ -32,6 +33,10 @@ RUN sudo apt-get update &&  apt-get install yarn
 # Zip - for simple-phpunit
 # RUN apt-get install zlib1g-dev -y
 # RUN docker-php-ext-install zip
+
+# https://symfony.com/download
+RUN  wget https://get.symfony.com/cli/installer -O - | bash
+RUN  mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 # Cleaning
 RUN apt-get autoremove -y --purge \
