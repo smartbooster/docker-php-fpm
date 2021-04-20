@@ -18,6 +18,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer config --global repo.packagist composer https://packagist.org
 
 # Install Node et Yarn
+RUN apt-get update
 RUN apt-get install -y \
     build-essential \
     sudo
