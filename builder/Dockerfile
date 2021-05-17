@@ -9,6 +9,12 @@ RUN apt-get update \
     wget \
     -y --no-install-recommends
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Install PHP Xdebug configuration, (see https://blog.eleven-labs.com/fr/debugger-avec-xdebug/)
+ADD ./etc/php/xdebug.ini /etc/php/conf.d/
+
 # Install de Composer
 ## Composer needs : git - zip - unzip
 ## Composer needs : git - zip - unzip
