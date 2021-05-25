@@ -18,7 +18,7 @@ ADD ./etc/php/xdebug.ini /etc/php/conf.d/
 # Install de Composer
 ## Composer needs : git - zip - unzip
 ## Composer needs : git - zip - unzip
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10.22 /usr/bin/composer /usr/bin/composer
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer config --global repo.packagist composer https://packagist.org
