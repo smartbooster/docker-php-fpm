@@ -9,15 +9,22 @@ RUN apt-get update \
     wget \
     -y --no-install-recommends
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Install PHP Xdebug configuration, (see https://blog.eleven-labs.com/fr/debugger-avec-xdebug/)
+ADD ./etc/php/xdebug.ini /etc/php/conf.d/
+
 # Install de Composer
 ## Composer needs : git - zip - unzip
 ## Composer needs : git - zip - unzip
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10.22 /usr/bin/composer /usr/bin/composer
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer config --global repo.packagist composer https://packagist.org
 
 # Install Node et Yarn
+RUN apt-get update
 RUN apt-get install -y \
     build-essential \
     sudo
