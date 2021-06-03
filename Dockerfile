@@ -14,6 +14,7 @@ ADD ./etc/php/php.ini /usr/local/etc/php/php.ini
 RUN apt-get install libicu-dev -yqq
 
 RUN docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mysqli \
     && docker-php-ext-install opcache \
     && docker-php-ext-install intl \
     && docker-php-ext-install sodium
