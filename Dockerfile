@@ -7,6 +7,7 @@ RUN apt-get update \
     libjpeg62-turbo-dev \
     libpng-dev \
     libsodium-dev \
+    libpq-dev \
     -y --no-install-recommends
 
 ADD ./etc/php/php.ini /usr/local/etc/php/php.ini
@@ -14,6 +15,9 @@ ADD ./etc/php/php.ini /usr/local/etc/php/php.ini
 RUN apt-get install libicu-dev -yqq
 
 RUN docker-php-ext-install pdo_mysql \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo_pgsql pgsql \
+    && docker-php-ext-enable pdo_pgsql \
     && docker-php-ext-install opcache \
     && docker-php-ext-install intl \
     && docker-php-ext-install sodium
