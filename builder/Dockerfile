@@ -1,4 +1,4 @@
-FROM smartbooster/php-fpm
+FROM smartbooster/php-fpm:7.4
 
 RUN apt-get update \
     && apt-get install \
