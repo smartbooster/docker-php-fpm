@@ -25,6 +25,12 @@ RUN docker-php-ext-install pdo_mysql \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
 
+# Install Imagemagick & PHP Imagick ext
+RUN apt-get install -y \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
+
 # Cleaning
 RUN apt-get autoremove -y --purge \
     && apt-get clean \
