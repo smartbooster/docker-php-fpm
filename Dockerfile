@@ -31,6 +31,12 @@ RUN apt-get install -y \
     && pecl install imagick \
     && docker-php-ext-enable imagick
 
+# Install php zip extension
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-install zip
+
 # Cleaning
 RUN apt-get autoremove -y --purge \
     && apt-get clean \
