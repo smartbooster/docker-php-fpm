@@ -24,3 +24,7 @@ If version needs to be used someday, this repository will be reorganized into fo
 Pull requests are welcome.
 
 Thanks to [everyone who has contributed](https://github.com/smartbooster/docker-php-fpm/contributors) already.
+
+---
+
+*This project is supported by [SmartBooster](https://www.smartbooster.io)*
